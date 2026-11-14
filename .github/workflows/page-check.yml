@@ -1,0 +1,11 @@
+name: Page check
+on: [push, pull_request]
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: The page has a title and a contact line
+        run: |
+          grep -q "<title>" index.html
+          grep -q "Contact: hello@example.org" index.html || { echo "index.html: the contact line must use hello@example.org"; exit 1; }
